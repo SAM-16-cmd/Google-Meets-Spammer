@@ -10,9 +10,6 @@ from art import text2art
 from platform import system
 
 '''Version: 1.0.3.1'''
-#Remove this when publishing code and when releasing a fully public version
-generic_email = 'cornboyloveshiscorn@gmail.com'
-generic_pass = 'Qay8bwEXkgEzUJF'
 username = environ['USERNAME']
 opperSystem = system()
 nonWindows = False
