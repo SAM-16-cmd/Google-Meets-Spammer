@@ -10,6 +10,9 @@ from art import text2art
 from platform import system
 
 '''Version: 1.0.3.1'''
+#Remove this when publishing code and when releasing a fully public version
+generic_email = 'cornboyloveshiscorn@gmail.com'
+generic_pass = 'Qay8bwEXkgEzUJF'
 username = environ['USERNAME']
 opperSystem = system()
 nonWindows = False
@@ -154,7 +157,7 @@ class generics:
         gmail = ngmail.replace('@gmail.com','') + '@gmail.com'
         password = input('Enter the password to the gmail you entered:\n')
         if not self.gmail_valid(gmail, password):
-            self.return_home('Your gmail was not added due to the entered gmail having an invalid password, or identifier. Check your connection to the internet.')
+            self.return_home('Your gmail was not added due to the entered gmail having an invalid password, or identifier. Try checking your connection to the internet as this could have been a network problem.')
         else:
             self.add_secrets(gmail, password)
             self.grab_secrets()
@@ -230,7 +233,6 @@ class spammer:
         for x in naccounts.split(','):
             accounts = accounts + x.replace('@gmail.com', '').replace(' ', '') + '@gmail.com' + ','
         accounts = accounts[:-1]
-        print(accounts)
         if not self.gens.logged_account_check(accounts):
             print('You entered a gmail that has not yet been entered, go back to the menu to enter it.')
             input()
@@ -254,13 +256,14 @@ class spammer:
         self.how_many = input('Enter how many times you want the bots to spam it:\n')
         try:
             int(self.how_many)
-        except TypeError:
-            print('You did not eneter an integer value for the amount of times to spam')
-            input()
-            self.gens.main_page()
+        except ValueError:
+            self.gens.return_home('You did not enter an integer value for the amount of times to spam')
 
         self.meet_link = input('Enter the link to you google meet:\n')
-        self.meet_code = self.meet_link.split('/')[2]
+        try:
+            self.meet_code = self.meet_link.split('/')[2]
+        except IndexError:
+            self.gens.return_home('You did not enter a valid link')
         self.spam_attack()
 
     def spam_attack(self):
@@ -297,7 +300,6 @@ class spammer:
                     try:
                         found = driver.find_element_by_xpath('/html/body/div[1]/c-wiz/div[1]/div/div[5]/div[3]/div[6]/div[3]/div/div[2]/div[3]').click()
                     except:
-                        print('No find')
                         error = False
 
                 sleep(3)
